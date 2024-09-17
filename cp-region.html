@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RD24</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="menu-container">
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+        <nav class="nav-menu">
+            <button class="menu-close" aria-label="Close menu">&times;</button>
+            <div class="nav-menu-white">
+                <ul>
+                    <li class="nav-menu-sub">공약조회</li>
+                    <li><a href="#home">- 지역별</a></li>
+                    <li><a href="#home">- 이름별</a></li>
+                    <li><a href="#home">익명게시판</a></li>
+                    <li><a href="#home">건의게시판</a></li>
+                </ul>
+            </div>
+        </nav>
+        <span>공약을지켜라</span>
+    </header>
+    
+    
+    <main>
+        <div class="cp-region-notice">* 당선인이 제출한 PDF파일을 기준으로 작성하였으며,<br>&ensp;제출하지 않은 당선인은 내용이 없을 수 있습니다.</div>
+        <form>
+            <select id="region" name="region">
+                <option value="">시/도를 선택하세요</option>
+                <option value="서울특별시">서울특별시</option>
+                <option value="부산광역시">부산광역시</option>
+                <option value="대구광역시">대구광역시</option>
+                <option value="인천광역시">인천광역시</option>
+                <option value="경기도">경기도</option>
+                <option value="경상남도">경상남도</option>
+                <option value="경상북도">경상북도</option> 
+                <option value="전라북도">전라북도</option>
+                <option value="전라남도">전라남도</option>
+                <option value="충청북도">충청북도</option>
+                <option value="충청남도">충청남도</option>
+                <option value="강원도">강원도</option>
+                <option value="제주도">제주도</option>
+            </select>
+
+          <p></p>
+            <select id="subregion" name="subregion">
+                <option value="">선거구를 선택하세요</option>
+            </select>
+        </form>
+        <a href="#" class="search-button-region">
+            조 회
+        </a>
+    </main>
+    
+    <footer>
+        <span>&copy; RD24</span>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const regionSelect = document.getElementById('region');
+            const subregionSelect = document.getElementById('subregion');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const menuClose = document.querySelector('.menu-close');
+            const submenuToggles = document.querySelectorAll('.nav-menu .has-submenu > a');
+
+            
+        // Toggle main menu
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+
+        // Close the menu
+            menuClose.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+
+        // Toggle submenu
+            submenuToggles.forEach(toggle => {  
+                toggle.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                const parentLi = toggle.parentElement;
+                parentLi.classList.toggle('active');
+                });
+            });
+            
+            
+            // 지역에 따른 시/구 데이터
+            const regionData = {
+                '서울특별시': [
+                    '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+                ],
+                '부산광역시': [
+                    '중구', '서구', '동구', '영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'
+                ],
+                '대구광역시': [
+                    '중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'
+                ],
+                '인천광역시': [
+                    '중구', '동구', '미추홀구', '연수구', '남동구', '부평구', '계양구', '서구', '강화군', '옹진군'
+                ],
+                '경기도': [
+                    '수원시', '성남시', '용인시', '부천시', '안양시', '안산시', '남양주시', '화성시', '군포시', '오산시', '의정부시', '이천시', '평택시', '하남시', '파주시', '양주시', '포천시', '가평군', '연천군'
+                ],
+                '경상남도': [
+                    '창원시', '김해시', '양산시', '진주시', '사천시', '밀양시', '거제시', '통영시', '하동군', '합천군', '산청군', '의령군', '함안군', '함양군', '거창군'
+                ],
+                '경상북도': [  // 추가된 부분
+                    '포항시', '경주시', '구미시', '김천시', '안동시', '영주시', '영천시', '상주시', '문경시', '경산시', '군위군', '군단군', '봉화군', '상주군', '울진군', '울릉군'
+                ],
+                '전라북도': [
+                    '전주시', '익산시', '군산시', '정읍시', '남원시', '김제시', '완주군', '진안군', '무주군', '장수군', '임실군', '순창군'
+                ],
+                '전라남도': [
+                    '순천시', '광양시', '여수시', '목포시', '나주시', '담양군', '곡성군', '구례군', '해남군', '영암군', '무안군', '신안군'
+                ],
+                '충청북도': [
+                    '청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군'
+                ],
+                '충청남도': [
+                    '천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'
+                ],
+                '강원도': [
+                    '춘천시', '원주시', '강릉시', '동해시', '속초시', '삼척시', '홍천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '화천군', '양구군', '인제군', '고성군', '양양군'
+                ],
+                '제주도': [
+                    '제주시', '서귀포시'
+                ]
+            };
+
+                // 지역 선택 시 시/구 옵션 변경
+                regionSelect.addEventListener('change', () => {
+                    const selectedRegion = regionSelect.value;
+                    const subregions = regionData[selectedRegion] || [];
+
+                    // 기존 옵션 삭제
+                    subregionSelect.innerHTML = '<option value="">시/구를 선택하세요</option>';
+
+                    // 새로운 옵션 추가
+                    subregions.forEach(subregion => {
+                        const option = document.createElement('option');
+                        option.value = `${selectedRegion}-${subregion}`;
+                        option.textContent = subregion;
+                        subregionSelect.appendChild(option);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
