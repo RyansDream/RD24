@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RD24</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="menu-container">
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+        <nav class="nav-menu">
+            <button class="menu-close" aria-label="Close menu">&times;</button>
+            <div class="nav-menu-white">
+                <ul>
+                    <li class="nav-menu-sub">공약조회</li>
+                    <li><a href="cp-region.html">- 지역별</a></li>
+                    <li><a href="#home">- 이름별</a></li>
+                    <li><a href="#home">익명게시판</a></li>
+                    <li><a href="#home">건의게시판</a></li>
+                </ul>
+            </div>
+        </nav>
+        <span onclick="location.href='https://ryansdream.github.io/RD24/index.html#home'">공약을지켜라</span>   <!-- 홈페이지 주소로 나중에 바꿔야함 -->
+
+    </header>
+    <main>
+        <div class="mainpage-cartoon"></div>
+        <a href="cp-region.html" class="mainpage-checkpromises">
+            공약 확인하러가기
+        </a>
+    </main>
+    <footer>
+        <span>&copy; RD24</span>
+    </footer>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const menuClose = document.querySelector('.menu-close');
+        const submenuToggles = document.querySelectorAll('.nav-menu .has-submenu > a');
+
+        // Toggle main menu
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.add('active');
+        });
+
+        // Close the menu
+        menuClose.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+
+        // Toggle submenu
+            submenuToggles.forEach(toggle => {
+            toggle.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                const parentLi = toggle.parentElement;
+                parentLi.classList.toggle('active');
+            });
+        });
+    });
+    
+    </script>
+</body>
+</html>
